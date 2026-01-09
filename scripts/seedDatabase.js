@@ -205,6 +205,67 @@ const seedDatabase = async () => {
         available_seats: 185,
         price: 549.99,
         status: 'scheduled'
+      },
+      // LAX to FAX flights
+      {
+        flight_number: 'FM301',
+        airline: 'SkyWings Airlines',
+        origin: 'LAX',
+        destination: 'FAX',
+        departure_time: '2026-01-17 08:00:00',
+        arrival_time: '2026-01-17 12:00:00',
+        total_seats: 180,
+        available_seats: 150,
+        price: 299.99,
+        status: 'scheduled'
+      },
+      {
+        flight_number: 'FM302',
+        airline: 'Global Airways',
+        origin: 'LAX',
+        destination: 'FAX',
+        departure_time: '2026-01-17 14:30:00',
+        arrival_time: '2026-01-17 18:30:00',
+        total_seats: 200,
+        available_seats: 180,
+        price: 349.99,
+        status: 'scheduled'
+      },
+      {
+        flight_number: 'FM303',
+        airline: 'Pacific Air',
+        origin: 'LAX',
+        destination: 'FAX',
+        departure_time: '2026-01-17 20:00:00',
+        arrival_time: '2026-01-18 00:00:00',
+        total_seats: 160,
+        available_seats: 140,
+        price: 279.99,
+        status: 'scheduled'
+      },
+      {
+        flight_number: 'FM304',
+        airline: 'SkyWings Airlines',
+        origin: 'LAX',
+        destination: 'FAX',
+        departure_time: '2026-01-18 09:30:00',
+        arrival_time: '2026-01-18 13:30:00',
+        total_seats: 180,
+        available_seats: 160,
+        price: 299.99,
+        status: 'scheduled'
+      },
+      {
+        flight_number: 'FM305',
+        airline: 'Continental Express',
+        origin: 'LAX',
+        destination: 'FAX',
+        departure_time: '2026-01-16 10:00:00',
+        arrival_time: '2026-01-16 14:00:00',
+        total_seats: 190,
+        available_seats: 170,
+        price: 319.99,
+        status: 'scheduled'
       }
     ];
 
