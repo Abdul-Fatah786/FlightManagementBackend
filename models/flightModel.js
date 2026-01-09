@@ -68,36 +68,37 @@ export const FlightModel = {
       offset = 0
     } = filters;
 
-    let query = sql`
-      SELECT * FROM flights
-      WHERE status = ${status}
-    `;
+    // Build query dynamically based on provided filters
+    let conditions = [`status = ${status}`];
+    let params = {};
 
     if (origin) {
-      query = sql`
-        SELECT * FROM flights
-        WHERE status = ${status} AND LOWER(origin) = LOWER(${origin})
-      `;
+      conditions.push(`LOWER(origin) = LOWER(${origin})`);
     }
 
-    if (origin && destination) {
-      query = sql`
-        SELECT * FROM flights
-        WHERE status = ${status}
-        AND LOWER(origin) = LOWER(${origin})
-        AND LOWER(destination) = LOWER(${destination})
-      `;
+    if (destination) {
+      conditions.push(`LOWER(destination) = LOWER(${destination})`);
     }
 
-    if (origin && destination && departure_date) {
-      query = sql`
-        SELECT * FROM flights
-        WHERE status = ${status}
-        AND LOWER(origin) = LOWER(${origin})
-        AND LOWER(destination) = LOWER(${destination})
-        AND DATE(departure_time) = ${departure_date}
-      `;
+    if (departure_date) {
+      conditions.push(`DATE(departure_time) = ${departure_date}`);
     }
+
+    if (airline) {
+      conditions.push(`LOWER(airline) = LOWER(${airline})`);
+    }
+
+    // Execute query with all conditions
+    const query = sql`
+      SELECT * FROM flights
+      WHERE status = ${status}
+      ${origin ? sql`AND LOWER(origin) = LOWER(${origin})` : sql``}
+      ${destination ? sql`AND LOWER(destination) = LOWER(${destination})` : sql``}
+      ${departure_date ? sql`AND DATE(departure_time) = ${departure_date}` : sql``}
+      ${airline ? sql`AND LOWER(airline) = LOWER(${airline})` : sql``}
+      ORDER BY departure_time ASC
+      LIMIT ${limit} OFFSET ${offset}
+    `;
 
     const flights = await query;
     return flights;

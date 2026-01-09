@@ -26,11 +26,22 @@ export const getAllFlights = asyncHandler(async (req, res, next) => {
  * @access  Public
  */
 export const searchFlights = asyncHandler(async (req, res, next) => {
-  const { origin, destination, departure_date, airline, status } = req.query;
+  let { origin, destination, departure_date, airline, status } = req.query;
 
+  // Trim whitespace from all string parameters
+  origin = origin?.trim();
+  destination = destination?.trim();
+  departure_date = departure_date?.trim();
+  airline = airline?.trim();
+
+  // Validate required fields
   if (!origin || !destination) {
     return next(new AppError('Origin and destination are required', 400));
   }
+
+  // Convert empty strings to undefined for optional fields
+  departure_date = departure_date || undefined;
+  airline = airline || undefined;
 
   const flights = await FlightModel.search({
     origin,
